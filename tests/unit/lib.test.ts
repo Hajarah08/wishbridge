@@ -45,7 +45,8 @@ describe("wish form validation", () => {
 describe("account validation", () => {
   it("enforces password strength", () => {
     expect(passwordSchema.safeParse("short").success).toBe(false);
-    expect(passwordSchema.safeParse("alllowercase123").success).toBe(false);
+    expect(passwordSchema.safeParse("seven77").success).toBe(false);
+    expect(passwordSchema.safeParse("sunflower").success).toBe(true);
     expect(passwordSchema.safeParse("Strong-Pass-2026").success).toBe(true);
   });
   it("requires accepting terms and a safe username", () => {

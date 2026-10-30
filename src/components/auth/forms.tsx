@@ -39,8 +39,8 @@ export function SignUpForm({ next }: { next?: string }) {
             <Field label="Email" htmlFor="email" required error={s.fieldErrors?.email} hint="Never shown to other users.">
               <Input id="email" name="email" type="email" autoComplete="email" required aria-invalid={!!s.fieldErrors?.email} defaultValue={s.values?.email} />
             </Field>
-            <Field label="Password" htmlFor="password" required error={s.fieldErrors?.password} hint="At least 10 characters with upper- and lowercase letters and a number.">
-              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={10} aria-invalid={!!s.fieldErrors?.password} />
+            <Field label="Password" htmlFor="password" required error={s.fieldErrors?.password} hint="At least 8 characters. A short phrase you can remember works well.">
+              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={8} aria-invalid={!!s.fieldErrors?.password} />
             </Field>
             <Checkbox name="acceptTerms" required label={<>I agree to the <Link className="underline" href="/legal/terms" target="_blank">Terms</Link> and <Link className="underline" href="/legal/guidelines" target="_blank">Community Guidelines</Link></>} />
             {s.fieldErrors?.acceptTerms ? <p role="alert" className="text-xs text-coral-700">{s.fieldErrors.acceptTerms[0]}</p> : null}
@@ -78,10 +78,10 @@ export function ResetPasswordForm() {
         ) : (
           <>
             <Field label="New password" htmlFor="password" required error={s.fieldErrors?.password}>
-              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={10} />
+              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={8} />
             </Field>
             <Field label="Confirm new password" htmlFor="confirm" required error={s.fieldErrors?.confirm}>
-              <Input id="confirm" name="confirm" type="password" autoComplete="new-password" required minLength={10} />
+              <Input id="confirm" name="confirm" type="password" autoComplete="new-password" required minLength={8} />
             </Field>
             <SubmitButton className="w-full" pendingLabel="Saving…">Update password</SubmitButton>
           </>

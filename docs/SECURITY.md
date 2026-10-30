@@ -3,7 +3,7 @@
 Status key: ✅ implemented and tested · 🟡 implemented, needs production configuration · ⬜ outstanding before launch
 
 ## Authentication & sessions
-- ✅ Supabase Auth email/password; passwords ≥10 chars with mixed case + digit (client, server, and Supabase `password_requirements`).
+- ✅ Supabase Auth email/password; passwords ≥8 characters, no composition rules, per NIST SP 800-63B (client, server, and Supabase minimum length). Consider enabling Supabase leaked-password protection (Pro plan).
 - ✅ Sessions in HTTP-only cookies managed by `@supabase/ssr`; refreshed in `src/proxy.ts`; server code uses `auth.getUser()` (validated), never trusts `getSession()` alone.
 - ✅ Account recovery: `/forgot-password` → email link → `/auth/confirm` → `/reset-password`. Responses don't reveal whether an email exists.
 - ✅ Open-redirect protection on `next` parameters (`safeNext`, unit-tested).

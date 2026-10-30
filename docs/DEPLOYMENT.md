@@ -11,7 +11,7 @@
    Do **not** run `supabase/seed.sql` against production (demo users and passwords).
 3. Auth settings (Dashboard → Authentication):
    - Site URL: `https://your-domain`; Redirect URLs: `https://your-domain/auth/confirm`.
-   - Enable **Confirm email**; minimum password length 10, require letters + digits + mixed case.
+   - Enable **Confirm email**; minimum password length 8, no password requirements.
    - Configure custom SMTP for reliable delivery.
    - Email templates: point confirmation and recovery links at `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type={{ .Type }}&next=/dashboard` (recovery redirects to `/reset-password` automatically).
 4. Storage: the `wish-images` bucket and its policies are created by migrations.
