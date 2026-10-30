@@ -28,7 +28,7 @@ export function SiteFooter() {
           </div>
         ))}
       </div>
-      <div className="border-t border-ivory-300 py-5 text-center text-xs text-ink-soft">© {new Date().getFullYear()} WishBridge. MVP preview.</div>
+      <div className="border-t border-ivory-300 py-5 text-center text-xs text-ink-soft">© {new Date().getFullYear()} WishBridge. All rights reserved.</div>
     </footer>
   );
 }
