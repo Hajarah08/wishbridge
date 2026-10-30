@@ -113,3 +113,15 @@ describe("simulated payment provider", () => {
     expect(fail.status).toBe("failed");
   });
 });
+
+describe("environment URL normalisation", async () => {
+  const { normalizeUrl } = await import("@/lib/env");
+  it("repairs common dashboard paste mistakes", () => {
+    expect(normalizeUrl(" wishbridge.vercel.app/ ")).toBe("https://wishbridge.vercel.app");
+    expect(normalizeUrl('"https://x.vercel.app"')).toBe("https://x.vercel.app");
+    expect(normalizeUrl("https://abc.supabase.co/rest/v1/", { stripApiPath: true })).toBe("https://abc.supabase.co");
+    expect(normalizeUrl("http://127.0.0.1:54321")).toBe("http://127.0.0.1:54321");
+    expect(normalizeUrl("not a url at all")).toBe("");
+    expect(normalizeUrl(undefined)).toBe("");
+  });
+});
