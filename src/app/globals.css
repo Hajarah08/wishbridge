@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* WishBridge design tokens: warm ivory, deep plum, soft coral, gentle green. */
+@theme {
+  --color-ivory-50: #fffdf9;
+  --color-ivory-100: #fbf7f0;
+  --color-ivory-200: #f4ede1;
+  --color-ivory-300: #e9dfcf;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-plum-50: #f6f1f8;
+  --color-plum-100: #ece2f1;
+  --color-plum-200: #d6c2e0;
+  --color-plum-300: #b897c8;
+  --color-plum-500: #7a4f8f;
+  --color-plum-600: #5f3a73;
+  --color-plum-700: #4a2a5c;
+  --color-plum-800: #3a2049;
+  --color-plum-900: #2a1636;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-midnight-700: #24304f;
+  --color-midnight-900: #161d33;
+
+  --color-coral-50: #fff1ee;
+  --color-coral-100: #ffe0d9;
+  --color-coral-300: #f9a596;
+  --color-coral-400: #f4826f;
+  --color-coral-500: #e8664f;
+  --color-coral-700: #b23f2b;
+
+  --color-sage-50: #eef8f2;
+  --color-sage-100: #d8efe1;
+  --color-sage-500: #3b9a68;
+  --color-sage-700: #23704a;
+
+  --color-amber-50: #fff7e6;
+  --color-amber-700: #8a5a00;
+
+  --color-ink: #2b2333;
+  --color-ink-soft: #5e5566;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(42 22 54 / 0.04), 0 8px 24px -12px rgb(42 22 54 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(42 22 54 / 0.05), 0 18px 40px -18px rgb(42 22 54 / 0.32);
+
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  color-scheme: light;
 }
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ivory-100);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-coral-400);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.prose-legal h2 { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--color-plum-800); }
+.prose-legal h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.25rem; }
+.prose-legal p, .prose-legal li { line-height: 1.7; color: var(--color-ink-soft); }
+.prose-legal p { margin-bottom: 0.75rem; }
+.prose-legal ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+.prose-legal li { margin-bottom: 0.25rem; }
+
+dialog::backdrop { background: rgb(42 22 54 / 0.45); backdrop-filter: blur(2px); }
