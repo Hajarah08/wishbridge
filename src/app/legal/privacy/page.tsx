@@ -11,6 +11,7 @@ export default function PrivacyPage() {
         <li><strong>Account data:</strong> email address, hashed password, username, and optional short bio.</li>
         <li><strong>Content:</strong> wishes, images, offers, messages, reports and support requests you submit.</li>
         <li><strong>Usage and security data:</strong> sign-in times, IP-derived rate-limit counters, and audit records of moderation actions.</li>
+        <li><strong>Visit statistics:</strong> aggregate, cookie-free page-view counts (pages visited, referrer, country, device type) via Vercel Web Analytics. These are not linked to your account.</li>
         <li><strong>Not collected in this version:</strong> payment card details, bank details, home addresses or identity documents.</li>
       </ul>
       <h2>How we use it</h2>
