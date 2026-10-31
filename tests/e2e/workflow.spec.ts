@@ -20,7 +20,7 @@ async function newUser(browser: Browser, prefix: string) {
 async function adminPage(browser: Browser): Promise<Page> {
   const page = await (await browser.newContext()).newPage();
   await page.goto("/login");
-  await page.getByLabel("Email").fill("admin@wishbridge.test");
+  await page.locator("#email").fill("admin@wishbridge.test");
   await page.locator("#password").fill("WishBridge2026");
   await page.getByRole("button", { name: "Sign in" }).click();
   await page.waitForURL(/\/dashboard/);

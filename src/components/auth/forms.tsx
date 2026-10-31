@@ -5,7 +5,7 @@ import { ActionForm } from "@/components/ui/action-form";
 import { Checkbox, Field, Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { PasswordInput } from "@/components/ui/password-input";
-import { requestPasswordReset, signIn, signUp, updatePassword } from "@/app/actions/auth";
+import { requestPasswordReset, resendConfirmation, signIn, signUp, updatePassword } from "@/app/actions/auth";
 
 export function SignInForm({ next }: { next?: string }) {
   return (
@@ -89,5 +89,28 @@ export function ResetPasswordForm() {
         )
       }
     </ActionForm>
+  );
+}
+
+export function ResendConfirmationForm({ open = false }: { open?: boolean }) {
+  return (
+    <details open={open} className="group rounded-2xl bg-ivory-50 p-4 ring-1 ring-ivory-300">
+      <summary className="cursor-pointer list-none text-sm font-semibold text-plum-800 [&::-webkit-details-marker]:hidden">
+        Resend confirmation email <span className="text-ink-soft group-open:hidden">›</span>
+      </summary>
+      <p className="mt-2 text-xs text-ink-soft">Didn&apos;t get the email, or the link expired? We&apos;ll send a fresh one (valid for 1 hour).</p>
+      <ActionForm action={resendConfirmation} className="mt-3 space-y-3">
+        {(s) =>
+          s.ok ? null : (
+            <>
+              <Field label="Email" htmlFor="resend-email" required error={s.fieldErrors?.email}>
+                <Input id="resend-email" name="email" type="email" autoComplete="email" required />
+              </Field>
+              <SubmitButton size="sm" variant="secondary" pendingLabel="Sending…">Send a new link</SubmitButton>
+            </>
+          )
+        }
+      </ActionForm>
+    </details>
   );
 }
