@@ -30,6 +30,6 @@ export async function GET(request: NextRequest) {
     type = null;
   }
 
-  if (!ok) redirect("/login?error=link");
+  if (!ok) redirect(searchParams.get("error") ? "/login?error=oauth" : "/login?error=link");
   redirect(type === "recovery" ? "/reset-password" : next);
 }

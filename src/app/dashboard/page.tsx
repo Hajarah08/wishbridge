@@ -25,6 +25,11 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
     <div>
       {sp.welcome ? <Notice tone="success" title="Welcome to WishBridge! 🎉" className="mb-6">Your account is ready. Make your first wish, or explore wishes you could help with.</Notice> : null}
       {sp.denied ? <Notice tone="danger" className="mb-6">You don&apos;t have access to that area.</Notice> : null}
+      {/^wisher_[0-9a-f]{8}$/.test(viewer.username) ? (
+        <Notice tone="info" title="Choose your public username" className="mb-6">
+          We gave you the temporary name <strong>@{viewer.username}</strong>. <Link href="/dashboard/settings" className="font-semibold underline">Pick a username</Link> people will see when you post (avoid your real name).
+        </Notice>
+      ) : null}
       <PageHeader title={`Hello, @${viewer.username}`} description="Here's what's happening with your wishes and giving."
         actions={<><ButtonLink href="/dashboard/wishes/new" variant="coral">Make a Wish</ButtonLink><ButtonLink href="/wishes" variant="secondary">Fulfil a Wish</ButtonLink></>} />
       <section aria-labelledby="wishing">
