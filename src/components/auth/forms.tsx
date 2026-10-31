@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ActionForm } from "@/components/ui/action-form";
 import { Checkbox, Field, Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/submit-button";
+import { PasswordInput } from "@/components/ui/password-input";
 import { requestPasswordReset, signIn, signUp, updatePassword } from "@/app/actions/auth";
 
 export function SignInForm({ next }: { next?: string }) {
@@ -16,7 +17,7 @@ export function SignInForm({ next }: { next?: string }) {
             <Input id="email" name="email" type="email" autoComplete="email" required aria-invalid={!!s.fieldErrors?.email} defaultValue={s.values?.email} />
           </Field>
           <Field label="Password" htmlFor="password" required error={s.fieldErrors?.password}>
-            <Input id="password" name="password" type="password" autoComplete="current-password" required aria-invalid={!!s.fieldErrors?.password} />
+            <PasswordInput id="password" name="password" autoComplete="current-password" required aria-invalid={!!s.fieldErrors?.password} />
           </Field>
           <div className="text-right text-sm"><Link href="/forgot-password" className="font-medium text-coral-700 hover:underline">Forgot password?</Link></div>
           <SubmitButton className="w-full" pendingLabel="Signing in…">Sign in</SubmitButton>
@@ -40,7 +41,7 @@ export function SignUpForm({ next }: { next?: string }) {
               <Input id="email" name="email" type="email" autoComplete="email" required aria-invalid={!!s.fieldErrors?.email} defaultValue={s.values?.email} />
             </Field>
             <Field label="Password" htmlFor="password" required error={s.fieldErrors?.password} hint="At least 8 characters. A short phrase you can remember works well.">
-              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={8} aria-invalid={!!s.fieldErrors?.password} />
+              <PasswordInput id="password" name="password" autoComplete="new-password" required minLength={8} aria-invalid={!!s.fieldErrors?.password} />
             </Field>
             <Checkbox name="acceptTerms" required label={<>I agree to the <Link className="underline" href="/legal/terms" target="_blank">Terms</Link> and <Link className="underline" href="/legal/guidelines" target="_blank">Community Guidelines</Link></>} />
             {s.fieldErrors?.acceptTerms ? <p role="alert" className="text-xs text-coral-700">{s.fieldErrors.acceptTerms[0]}</p> : null}
@@ -78,10 +79,10 @@ export function ResetPasswordForm() {
         ) : (
           <>
             <Field label="New password" htmlFor="password" required error={s.fieldErrors?.password}>
-              <Input id="password" name="password" type="password" autoComplete="new-password" required minLength={8} />
+              <PasswordInput id="password" name="password" autoComplete="new-password" required minLength={8} />
             </Field>
             <Field label="Confirm new password" htmlFor="confirm" required error={s.fieldErrors?.confirm}>
-              <Input id="confirm" name="confirm" type="password" autoComplete="new-password" required minLength={8} />
+              <PasswordInput id="confirm" name="confirm" autoComplete="new-password" required minLength={8} />
             </Field>
             <SubmitButton className="w-full" pendingLabel="Saving…">Update password</SubmitButton>
           </>

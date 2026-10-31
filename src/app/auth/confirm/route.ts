@@ -1,23 +1,35 @@
-import { type NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { redirect } from "next/navigation";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { safeNext } from "@/lib/safe-redirect";
 
-// Handles links from auth emails (sign-up confirmation, password recovery).
+const OTP_TYPES = new Set<EmailOtpType>(["signup", "email", "recovery", "email_change", "invite", "magiclink"]);
+
+// Handles links from auth emails (sign-up confirmation, password recovery,
+// email change). Works across devices because it uses the token hash rather
+// than a PKCE code tied to the browser that started the flow.
+// redirect() sends a relative Location, so the session cookie set here stays
+// on the same host the link was opened on.
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = request.nextUrl;
   const tokenHash = searchParams.get("token_hash");
-  const type = searchParams.get("type") as EmailOtpType | null;
+  const rawType = searchParams.get("type") as EmailOtpType | null;
   const code = searchParams.get("code");
   const next = safeNext(searchParams.get("next"));
   const supabase = await createClient();
 
-  if (tokenHash && type) {
-    const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
-    if (!error) return NextResponse.redirect(new URL(type === "recovery" ? "/reset-password" : next, request.url));
+  let ok = false;
+  let type = rawType;
+  if (tokenHash && rawType && OTP_TYPES.has(rawType)) {
+    const { error } = await supabase.auth.verifyOtp({ type: rawType, token_hash: tokenHash });
+    ok = !error;
   } else if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return NextResponse.redirect(new URL(next, request.url));
+    ok = !error;
+    type = null;
   }
-  return NextResponse.redirect(new URL("/login?error=link", request.url));
+
+  if (!ok) redirect("/login?error=link");
+  redirect(type === "recovery" ? "/reset-password" : next);
 }

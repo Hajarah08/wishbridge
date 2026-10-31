@@ -10,7 +10,7 @@ async function newUser(browser: Browser, prefix: string) {
   await page.goto("/signup");
   await page.getByLabel("Username").fill(username);
   await page.getByLabel("Email").fill(`${username}@example.test`);
-  await page.getByLabel("Password").fill(PASSWORD);
+  await page.locator("#password").fill(PASSWORD);
   await page.getByLabel(/I agree to the/).check();
   await page.getByRole("button", { name: "Create account" }).click();
   await page.waitForURL(/\/dashboard/);
@@ -21,7 +21,7 @@ async function adminPage(browser: Browser): Promise<Page> {
   const page = await (await browser.newContext()).newPage();
   await page.goto("/login");
   await page.getByLabel("Email").fill("admin@wishbridge.test");
-  await page.getByLabel("Password").fill("WishBridge2026");
+  await page.locator("#password").fill("WishBridge2026");
   await page.getByRole("button", { name: "Sign in" }).click();
   await page.waitForURL(/\/dashboard/);
   return page;
